@@ -2,7 +2,6 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { queryIndex } from '../../apis';
 import Bookmarks from '../../components/Bookmarks';
 import {
     handleHamburgerMenu,
@@ -11,6 +10,8 @@ import {
     setInputQuestion,
     setThinking
 } from '../../redux/queryReducer';
+import { queryIndex } from '../../apis/queryIndex';
+import { v4 as uuid } from 'uuid';
 
 function Bookmark() {
     const { data, bookmarks } = useSelector((store) => store.queryReducer);
@@ -20,7 +21,8 @@ function Bookmark() {
     const handleSelectBookmark = (bookmark) => {
         const obj = [...data];
         obj.push({
-            ques: bookmark,
+            id: uuid(),
+            ques: bookmark.question,
             ans: '',
             error: ''
         });
@@ -55,8 +57,12 @@ function Bookmark() {
 
     const handleFetch = async (bookmark) => {
         try {
-            const data = await queryIndex(bookmark);
-            setResp(data);
+            const obj = {
+                role: 'user',
+                content: bookmark.question
+            };
+            const data = await queryIndex(obj);
+            setResp({ output: data, error: false });
         } catch (error) {
             setTimeout(() => {
                 setResp({ output: 'Something went wrong. Pls try again.', error: true });

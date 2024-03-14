@@ -7,6 +7,7 @@ import { darkThemeColors, lightThemeColors } from '../../components/Tools/theme'
 import { handleInputQuery, setThinking } from '../../redux/queryReducer';
 import { handleToggleTheme } from '../../redux/themeReducer';
 import Bookmark from '../Bookmark';
+import { toggleSetupKeyPopup } from '../../redux/popupReducer';
 
 function LeftBar() {
     const dispatch = useDispatch();
@@ -14,7 +15,8 @@ function LeftBar() {
 
     const handleOnClick = (title) => {
         switch (title) {
-            case 'Login':
+            case 'Setup API key':
+                dispatch(toggleSetupKeyPopup(true));
                 break;
             case 'Clear Conversation':
                 dispatch(setThinking(true));

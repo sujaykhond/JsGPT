@@ -19,9 +19,7 @@ function AnswerBubble({ el, idx, handleCopyAnswer, handleBookmark }) {
                         <button className="copy__btn" onClick={() => handleCopyAnswer(el.ans)}>
                             <Copy />
                         </button>
-                        <button
-                            className="bookmark__btn"
-                            onClick={() => handleBookmark(el.ques, idx)}>
+                        <button className="bookmark__btn" onClick={() => handleBookmark(el)}>
                             <Bookmark
                                 fill={el.bookmarked ? '#10A37F' : ''}
                                 stroke={el.bookmarked ? '#10A37F' : '#939393'}

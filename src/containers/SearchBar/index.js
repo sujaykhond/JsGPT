@@ -3,15 +3,16 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { queryIndex } from '../../apis';
 import { INITIAL_DATA_STATE } from '../../components/constants';
 import SearchBox from '../../components/SearchBox';
 import { handleInputQuery, setInputQuestion, setThinking } from '../../redux/queryReducer';
+import { queryIndex } from '../../apis/queryIndex';
+import { v4 as uuid } from 'uuid';
 
 function SearchBar() {
     const inputRef = useRef(null);
     const dispatch = useDispatch();
-    const [resp, setResp] = useState(null);
+    const [resp, setResp] = useState({});
     const { data, inputQuestion } = useSelector((store) => store.queryReducer);
 
     useEffect(() => {
@@ -32,6 +33,7 @@ function SearchBar() {
         const obj = [...data];
 
         obj.push({
+            id: uuid(),
             ques: inputQuestion,
             ans: '',
             error: ''
@@ -40,12 +42,21 @@ function SearchBar() {
         dispatch(handleInputQuery(obj));
 
         try {
-            const data = await queryIndex(inputQuestion);
-            setResp(data);
-        } catch (error) {
-            setTimeout(() => {
+            const inputQuery = {
+                role: 'user',
+                content: inputQuestion
+            };
+
+            const data = await queryIndex(inputQuery);
+
+            if (typeof data === 'string') {
+                const obj = { output: data, error: false };
+                setResp({ ...obj });
+            } else {
                 setResp({ output: 'Something went wrong. Pls try again.', error: true });
-            }, 1000);
+            }
+        } catch (error) {
+            setResp({ output: 'Something went wrong. Pls try again.', error: true });
         }
     };
 

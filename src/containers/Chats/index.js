@@ -18,23 +18,27 @@ function Chats() {
         }
     }, [thinking]);
 
-    const handleBookmark = (item, id) => {
-        const obj = [...data];
+    const handleBookmark = (item) => {
+        let obj = [...data];
 
-        if (obj[id]['bookmarked']) {
-            obj[id] = {
-                ...data[id],
-                bookmarked: false
-            };
-            const removeBookmark = bookmarks.filter((el) => el !== item);
-            dispatch(resetBookmarks(removeBookmark));
-        } else {
-            obj[id] = {
-                ...data[id],
-                bookmarked: true
-            };
-            dispatch(setBookmarks(item));
-        }
+        obj.map((el, idx) => {
+            if (el.id === item.id) {
+                if (el['bookmarked']) {
+                    obj[idx] = {
+                        ...obj[idx],
+                        bookmarked: false
+                    };
+                    const removeBookmark = bookmarks.filter((el) => el.id !== item.id);
+                    dispatch(resetBookmarks(removeBookmark));
+                } else {
+                    obj[idx] = {
+                        ...obj[idx],
+                        bookmarked: true
+                    };
+                    dispatch(setBookmarks(item));
+                }
+            }
+        });
 
         dispatch(handleInputQuery(obj));
     };
@@ -47,7 +51,7 @@ function Chats() {
         <>
             {data.map((el, idx) => (
                 <>
-                    {el.ques && <QuestionBubble el={el} idx={idx} />}
+                    {el.ques && <QuestionBubble el={el} />}
                     {el.ans && (
                         <AnswerBubble
                             handleBookmark={handleBookmark}

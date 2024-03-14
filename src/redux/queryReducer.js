@@ -4,6 +4,7 @@ import { BOOKMARKS } from '../components/constants';
 const initialState = {
     data: [
         {
+            id: 0,
             ques: '',
             ans: '',
             error: ''
@@ -31,8 +32,8 @@ const queryReducer = createSlice({
         },
         setBookmarks(state, { payload }) {
             const arr = [...state.bookmarks];
-            arr.push(payload);
-            state.bookmarks = arr;
+            const obj = { id: payload.id, question: payload.ques };
+            state.bookmarks = [...arr, obj];
         },
         resetBookmarks(state, { payload }) {
             state.bookmarks = payload;

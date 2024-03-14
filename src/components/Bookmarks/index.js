@@ -5,8 +5,8 @@ function Bookmarks({ data, onClick }) {
     return (
         <StyledBookmark>
             {data.map((el) => (
-                <div className="bookmark__wrapper" onClick={() => onClick(el)}>
-                    <span>{el}</span>
+                <div key={el.id} className="bookmark__wrapper" onClick={() => onClick(el)}>
+                    <span>{el.question}</span>
                     <hr />
                 </div>
             ))}
