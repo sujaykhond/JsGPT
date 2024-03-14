@@ -1,7 +1,6 @@
 import { readDataStream } from '../services';
 
 const endpoint = process.env.REACT_APP_API_ENDPOINT;
-const apiKey = localStorage.getItem('api_key');
 
 const config = {
     model: 'gpt-3.5-turbo',
@@ -13,11 +12,13 @@ const config = {
 };
 
 const headers = {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${apiKey}`
+    'Content-Type': 'application/json'
 };
 
 export const queryIndex = async (inputQuery) => {
+    const apiKey = localStorage.getItem('api_key');
+    headers.Authorization = `Bearer ${apiKey}`;
+
     try {
         const response = await fetch(endpoint, {
             method: 'POST',
