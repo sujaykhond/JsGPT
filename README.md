@@ -16,8 +16,6 @@
     
 ## 🗂️ Intro
     
-The backend is a [LlamaIndex](https://gpt-index.readthedocs.io/en/latest/) powered Flask server and the frontend is built with ReactJs.
-    
 Main library used to index our custom data:
 1. [LlamaIndex](https://gpt-index.readthedocs.io/en/latest/) :- LlamaIndex (GPT Index) is a package that provides a central interface to connect your [LLM’s(large language model)](https://en.wikipedia.org/wiki/Large_language_model) with external data.
 
@@ -62,3 +60,6 @@ Generate an [OpenAI](https://platform.openai.com/account/api-keys) API key.
 2. Make changes and test.
 
 3. Submit Pull Request with decent description of changes.
+
+## Credit -
+            **Sujay Khond**
