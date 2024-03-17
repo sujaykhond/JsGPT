@@ -61,5 +61,5 @@ Generate an [OpenAI](https://platform.openai.com/account/api-keys) API key.
 
 3. Submit Pull Request with decent description of changes.
 
-## Credit -
-            **Sujay Khond**
+## Credit - 
+  --      **Sujay Khond**
